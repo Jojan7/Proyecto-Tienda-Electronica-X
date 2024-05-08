@@ -65,11 +65,11 @@ public class HelperImpresion {
                         + "La Direccion de la persona es:" + "\t" + lspersonalocal.get(i).getDireccion() + "\n"
                 );
                 for (int j = 0; j < lspersonalocal.get(i).getProductos().size(); j++) {
-                    //Falta codigo
+                    
                     System.out.println("Producto" + "\t" + (j + 1));
-                    System.out.println("Nombre" + "\t" + lspersonalocal.get(i).getProductos().get(i).getNombre());
-                    System.out.println("Marca" + "\t" + lspersonalocal.get(i).getProductos().get(i).getNombre());
-                    System.out.println("Serial" + "\t" + lspersonalocal.get(i).getProductos().get(i).getNombre());
+                    System.out.println("Nombre" + "\t" + lspersonalocal.get(i).getProductos().get(j).getNombre());
+                    System.out.println("Marca" + "\t" + lspersonalocal.get(i).getProductos().get(j).getMarca());
+                    System.out.println("Serial" + "\t" + lspersonalocal.get(i).getProductos().get(j).getSerial());
 
                 }
 
@@ -97,8 +97,8 @@ public class HelperImpresion {
                         + "El id de la persona es: " + lspersonasnube.get(i).getUid() + "\n"
                         + "El Nombre de la persona es: " + "\t" + lspersonasnube.get(i).getNombre() + "\n"
                         + "El Apellido de la persona es: " + "\t" + lspersonasnube.get(i).getApellido() + "\n"
-                        + "LA Cedula de la persona es: " + "\t" + lspersonasnube.get(i).getCedula() + "\n"
-                        + "LA Direccion de la persona es: " + "\t" + lspersonasnube.get(i).getDireccion()
+                        + "La Cedula de la persona es: " + "\t" + lspersonasnube.get(i).getCedula() + "\n"
+                        + "La Direccion de la persona es: " + "\t" + lspersonasnube.get(i).getDireccion()
                 );
                 partes = lspersonasnube.get(i).getProducto().split(";");
 

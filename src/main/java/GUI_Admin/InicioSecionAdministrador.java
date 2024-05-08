@@ -4,6 +4,21 @@
  */
 package GUI_Admin;
 
+import Helpers.HelperCifrado;
+import Logica_Conexion.Conexion;
+import Logica_Negocio.Administrador;
+import Logica_Negocio.Usuario;
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author Equipo
@@ -13,8 +28,70 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
     /**
      * Creates new form InicioSecionAdministrador
      */
+    //Cambio Aqui
+    public String pathc;
+    public String s;
+
     public InicioSecionAdministrador() {
         initComponents();
+        Conexion.Conectar();
+        Path currentRelativePath = Paths.get("");
+        s = currentRelativePath.toAbsolutePath().toString();
+        pathc = s + "\\Images\\" + "Background" + ".jpg";
+        establecerImagen();
+    }
+
+    public void InicioSesion() {
+
+        int res, res1;
+        String usuario = jTextField1.getText();
+        String contraseña = String.valueOf(jPasswordField1.getPassword());
+
+        res = Helpers.HelperValidacion.ValidarTodo(usuario);
+        res1 = Helpers.HelperValidacion.ValidarTodoContraseña(contraseña);
+
+        if (res == 0 && res1 == 0) {
+
+            String cifrarusu = HelperCifrado.CifrarSHA256(usuario);
+            String cifrarcontra = HelperCifrado.CifrarSHA256(contraseña);
+
+            System.out.println("usu ci inter" + "\t" + cifrarusu);
+            System.out.println("usu con inter" + "\t" + cifrarcontra);
+
+            Usuario usuAdmin = new Administrador("Jojan", "12345");
+
+            boolean rta = usuAdmin.LogOn(cifrarusu, cifrarcontra);
+
+            if (rta) {
+                JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+                MenuAdministrador menu = new MenuAdministrador();
+                menu.setVisible(true);
+                dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña invalida");
+
+            }
+        } else {
+
+            jTextField1.setBorder(new LineBorder(Color.RED, 2));
+            jPasswordField1.setBorder(new LineBorder(Color.RED, 2));
+
+        }
+
+    }
+
+    public void establecerImagen() {
+
+        Image img = null;
+        try {
+            File file = new File(pathc);
+            img = ImageIO.read(new File(pathc));
+            //5. Setear la imagen al JLabel
+            jLabel4.setIcon(new ImageIcon(img));
+        } catch (IOException ioexception) {
+            System.err.println(ioexception);
+        }
     }
 
     /**
@@ -26,21 +103,63 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(544, 452));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Inicio de Sesion Administrador ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 27, -1, -1));
+
+        jLabel2.setText("Usuario ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 80, -1, -1));
+
+        jLabel3.setText("Contraseña");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 146, -1, -1));
+
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 143, 170, -1));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 77, 170, -1));
+
+        jButton1.setText("Iniciar Sesion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 218, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        InicioSesion();    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +197,12 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

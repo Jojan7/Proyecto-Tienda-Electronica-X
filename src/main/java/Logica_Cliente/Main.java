@@ -259,7 +259,7 @@ public class Main {
                     objper = new Persona(String.valueOf(id), nombre, apellido, direccion, cedula, producto, nom_img);
                     objper.setProductos(lsproduglobal);
                     lspersonalocal.add(objper);
-                    HelperRegistro.RegistrarPersonaNube(objper, id, producto);
+                    HelperRegistro.RegistrarPersonaNubeI(objper, id, producto);
                     producto = "";
                     break;
                 //Añadimos los casos 2,3 y 4
@@ -269,12 +269,12 @@ public class Main {
 
                     break;
 
-//                case 3:
-//                    HelperImpresion.ImprimirInfoLocal(lspersonalocal);
-//
-//                    break;
-
                 case 3:
+                    HelperImpresion.ImprimirInfoLocal(lspersonalocal);
+
+                    break;
+
+                case 4:
 
                     String codigo = "";
                     lspersonasnube = PersonaProvider.CargarInfoPersona();
@@ -287,7 +287,7 @@ public class Main {
                     break;
 
             }
-        } while (opc != 4);
+        } while (opc != 5);
 
     }
 }

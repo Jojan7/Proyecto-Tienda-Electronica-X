@@ -4,6 +4,7 @@
  */
 package Helpers;
 
+import Helpers.IHelperRegistro;
 import Logica_Conexion.PersonaProvider;
 import Logica_Negocio.Persona;
 import java.util.HashMap;
@@ -14,13 +15,18 @@ import javax.swing.SpringLayout;
  *
  * @author Equipo
  */
-public class HelperRegistro {
-    public static void RegistrarPersonaNube(Persona objper, int id, String producto){
+
+public class HelperRegistro implements IHelperRegistro{ 
+@Override
+
+    public void RegistrarPersonaNube(Persona objper, int id, String producto){
     boolean res= PersonaProvider.RetornarUid(objper.getUid());
     if(!res){
     try{
     
         Map<String, Object> datos=new HashMap<>();
+        
+        //Permite la busqueda de claves unicas
         datos.put("uid", objper.getUid());
         datos.put("Nombre", objper.getNombre());
         datos.put("Apellido", objper.getApellido());
@@ -41,4 +47,8 @@ public class HelperRegistro {
    }
     
     } 
+public static void RegistrarPersonaNubeI (Persona objper, int id, String producto){
+HelperRegistro objHelperRegistro=new HelperRegistro();
+objHelperRegistro.RegistrarPersonaNube(objper, id, producto);
+}
 }
