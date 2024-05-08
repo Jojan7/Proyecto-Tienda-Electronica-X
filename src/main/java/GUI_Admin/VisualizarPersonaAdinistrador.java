@@ -4,11 +4,14 @@
  */
 package GUI_Admin;
 
+import Logica_Conexion.PersonaProvider;
+import Logica_Negocio.Persona;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -20,6 +23,7 @@ public class VisualizarPersonaAdinistrador extends javax.swing.JFrame {
     
 public String pathc;
     public String s;
+      ArrayList<Persona> lspersonasnube;
     /**
      * Creates new form VisualizarPersonaAdinistrador
      */
@@ -57,8 +61,9 @@ public String pathc;
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        panel1 = new java.awt.Panel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -75,28 +80,34 @@ public String pathc;
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 270, -1, -1));
 
         jButton2.setText("Mostrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 270, -1, -1));
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 28, 376, -1));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 0, 460, 350));
+
+        jScrollPane1.setViewportView(jTextPane1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 340, 200));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    MenuAdministrador menu = new MenuAdministrador();
+    menu.setVisible(true);
+    dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+   lspersonasnube = PersonaProvider.CargarInfoPersona();
+   String im=Helpers.HelperImpresion.ImprimirInfoInterfaz(lspersonasnube);
+   jTextPane1.setText(im);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +149,7 @@ public String pathc;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private java.awt.Panel panel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }

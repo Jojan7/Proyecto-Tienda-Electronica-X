@@ -104,7 +104,45 @@ public class PersonaProvider {
         }
         return rta;
     }
-            
+            public static Persona CargarInfoPersonaCodigo(String codigo) {
+        
+        Persona objper;
+        Persona objper1=null;
+        
+        ArrayList<Persona> lspersona = new ArrayList<>();
+        ArrayList<Producto> lsprodu = new ArrayList<>();
+
+        try {
+            CollectionReference persona = Conexion.db.collection("Persona");
+            ApiFuture<QuerySnapshot> querySnap = persona.get();
+
+            for (DocumentSnapshot document : querySnap.get().getDocuments()) {
+                
+                objper = new Persona(document.getString("uid"),
+                        document.getString("Nombre"),
+                        document.getString("Apellido"),
+                        document.getString("Cedula"),
+                        document.getString("Direccion"),
+                        document.getString("Productos"),
+                        document.getString("Nom_img")
+                        
+                );
+                lspersona.add(objper);
+                
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+          for (int i = 0; i < lspersona.size(); i++) {
+              if(codigo.equals(lspersona.get(i).getUid()))
+              {
+                  objper1=lspersona.get(i);
+              }
+          }
+        return objper1;
+    }
+
             
         }
 
