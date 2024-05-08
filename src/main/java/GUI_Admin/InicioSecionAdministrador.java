@@ -58,7 +58,7 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
             System.out.println("usu ci inter" + "\t" + cifrarusu);
             System.out.println("usu con inter" + "\t" + cifrarcontra);
 
-            Usuario usuAdmin = new Administrador("Jojan", "12345");
+            Usuario usuAdmin = new Administrador("Admin", "12345");
 
             boolean rta = usuAdmin.LogOn(cifrarusu, cifrarcontra);
 
