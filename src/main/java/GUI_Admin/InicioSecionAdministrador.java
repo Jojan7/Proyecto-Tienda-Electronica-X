@@ -4,11 +4,14 @@
  */
 package GUI_Admin;
 
+import GUI_Cliente.MenuCliente;
 import Helpers.HelperCifrado;
 import Logica_Conexion.Conexion;
 import Logica_Negocio.Administrador;
+import Logica_Negocio.Cliente;
 import Logica_Negocio.Usuario;
 import java.awt.Color;
+import static java.awt.Color.RED;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +35,10 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
     public String pathc;
     public String s;
     
-    
-    
+
+    Usuario usuAdmin;
+    Usuario usuCliente;
+
 
     public InicioSecionAdministrador() {
         initComponents();
@@ -44,8 +49,7 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
         establecerImagen();
     }
 
-    public void InicioSesion() {
-
+      public void InicioSesion() {
         int res, res1;
         String usuario = jTextField1.getText();
         String contraseña = String.valueOf(jPasswordField1.getPassword());
@@ -55,26 +59,57 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
 
         if (res == 0 && res1 == 0) {
 
+      
+
             String cifrarusu = HelperCifrado.CifrarSHA256(usuario);
             String cifrarcontra = HelperCifrado.CifrarSHA256(contraseña);
 
             System.out.println("usu ci inter" + "\t" + cifrarusu);
             System.out.println("usu con inter" + "\t" + cifrarcontra);
+            System.out.println("Usu" + cifrarusu);
 
-            Usuario usuAdmin = new Administrador("Admin", "12345");
-
-            boolean rta = usuAdmin.LogOn(cifrarusu, cifrarcontra);
-
-            if (rta) {
-                JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
-                MenuAdministrador menu = new MenuAdministrador();
-                menu.setVisible(true);
-                dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña invalida");
-
+            if (usuario.equals("Admin")) {
+                usuAdmin = new Administrador("Admin", "12345");
+            } else if (usuario.equals("Cliente")) {
+                usuCliente = new Cliente("Cliente", "12345");
+                
+            }else{
+            JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INVALIDA");
+            jTextField1.setBorder(new LineBorder(Color.RED, 2));
+            jPasswordField1.setBorder(new LineBorder(Color.RED, 2));
+            
+            
             }
+
+            if (usuCliente instanceof Cliente) {
+                boolean rta1 = usuCliente.LogOn(cifrarusu, cifrarcontra);
+
+                if (rta1) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido Cliente");
+                    MenuCliente menu = new MenuCliente();
+                    menu.setVisible(true);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña invalida");
+
+                }
+
+            } else if (usuAdmin instanceof Administrador) {
+                boolean rta = usuAdmin.LogOn(cifrarusu, cifrarcontra);
+
+                if (rta) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+                    MenuAdministrador menu = new MenuAdministrador();
+                    menu.setVisible(true);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña invalida");
+
+                }
+            }
+
         } else {
 
             jTextField1.setBorder(new LineBorder(Color.RED, 2));
