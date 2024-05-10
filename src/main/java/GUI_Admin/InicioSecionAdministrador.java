@@ -11,6 +11,7 @@ import Logica_Negocio.Administrador;
 import Logica_Negocio.Cliente;
 import Logica_Negocio.Usuario;
 import java.awt.Color;
+import static java.awt.Color.RED;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -69,6 +70,13 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
                 usuAdmin = new Administrador("Admin", "12345");
             } else if (usuario.equals("Cliente")) {
                 usuCliente = new Cliente("Cliente", "12345");
+                
+            }else{
+            JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INVALIDA");
+            jTextField1.setBorder(new LineBorder(Color.RED, 2));
+            jPasswordField1.setBorder(new LineBorder(Color.RED, 2));
+            
+            
             }
 
             if (usuCliente instanceof Cliente) {
