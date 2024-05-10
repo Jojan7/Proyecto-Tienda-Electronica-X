@@ -31,6 +31,9 @@ public class InicioSecionAdministrador extends javax.swing.JFrame {
     //Cambio Aqui
     public String pathc;
     public String s;
+    
+    
+    
 
     public InicioSecionAdministrador() {
         initComponents();
