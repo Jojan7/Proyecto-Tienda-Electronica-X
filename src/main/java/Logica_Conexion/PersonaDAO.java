@@ -41,62 +41,62 @@ public class PersonaDAO implements DAOInterfacePersona {
     @Override
     public int delete(String id) throws SQLException {
         String query
-            = "delete from persona where Uid =?";
+                = "delete from persona where Uid =?";
         PreparedStatement ps
-            = con.prepareStatement(query);
+                = con.prepareStatement(query);
         ps.setString(1, id);
-       int n= ps.executeUpdate();
-       return n;
+        int n = ps.executeUpdate();
+        return n;
     }
 
     @Override
     public Persona getPersona(String id) throws SQLException {
-        
+
         String query
-            = "select * from persona where Uid= ?";
+                = "select * from persona where Uid= ?";
         PreparedStatement ps
-            = con.prepareStatement(query);
- 
+                = con.prepareStatement(query);
+
         ps.setString(1, id);
-        Persona per=null;
+        Persona per = null;
         ResultSet rs = ps.executeQuery();
         boolean check = false;
- 
+
         while (rs.next()) {
             check = true;
             per = new Persona(rs.getString("Uid"),
                     rs.getString("Nombre"),
-            rs.getString("Apellido"),
-            rs.getString("Direccion"),
+                    rs.getString("Apellido"),
                     rs.getString("Cedula"),
+                    rs.getString("Direccion"),
                     rs.getString("Producto"),
                     rs.getString("Nom_img"));
         }
- 
+
         if (check == true) {
             return per;
-        }
-        else
+        } else {
             return null;
+        }
     }
 
     @Override
     public ArrayList<Persona> getPersona() throws SQLException {
         String query = "select * from persona";
         PreparedStatement ps
-            = con.prepareStatement(query);
+                = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         ArrayList<Persona> ls = new ArrayList<>();
- 
+
         while (rs.next()) {
             Persona per = new Persona(rs.getString("Uid"),
                     rs.getString("Nombre"),
-            rs.getString("Apellido"),
-            rs.getString("Direccion"),
+                    rs.getString("Apellido"),
                     rs.getString("Cedula"),
+                    rs.getString("Direccion"),
                     rs.getString("Producto"),
                     rs.getString("Nom_img"));
-          
+
             ls.add(per);
         }
         return ls;
